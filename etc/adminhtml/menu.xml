@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Magepow 
+ * @category    Magepow 
+ * @copyright   Copyright (c) 2014 Magepow (https://www.magepow.com) 
+ * @license     http://www.magepow.com/license-agreement.html
+ * @Author: DOng NGuyen<support@magepow.com>
+ * @@Create Date: 2016-02-23 18:59:34
+ * @@Modify Date: 2020-03-16 10:26:07
+ * @@Function:
+ */ -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="magepow" title="Magepow" module="Magepow_MultiTranslate" sortOrder="10" resource="Magepow_MultiTranslate::magepow"/>
+
+	        <add id="Magepow_MultiTranslate::multitranslate" title="MultiTranslate" module="Magepow_MultiTranslate" sortOrder="10" parent="magepow" resource="Magepow_MultiTranslate::multitranslate"/>
+				
+				<add id="Magepow_MultiTranslate::multitranslate_product" title="Translate Product" module="Magepow_MultiTranslate" sortOrder="5" parent="Magepow_MultiTranslate::multitranslate" action="multitranslate/product" resource="Magepow_MultiTranslate::multitranslate_product"/>
+
+				<add id="Magepow_MultiTranslate::multitranslate_category" title="Translate Category" module="Magepow_MultiTranslate" sortOrder="10" parent="Magepow_MultiTranslate::multitranslate" action="multitranslate/category" resource="Magepow_MultiTranslate::multitranslate_category"/>
+
+				<add id="Magepow_MultiTranslate::multitranslate_catalog" title="Translate Catalog" module="Magepow_MultiTranslate" sortOrder="15" parent="Magepow_MultiTranslate::multitranslate" action="multitranslate/catalog" resource="Magepow_MultiTranslate::multitranslate_catalog"/>
+
+    </menu>
+</config>

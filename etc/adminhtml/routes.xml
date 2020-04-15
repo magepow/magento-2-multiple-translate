@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Magepow 
+ * @category    Magepow 
+ * @copyright   Copyright (c) 2014 Magepow (https://www.magepow.com) 
+ * @license     http://www.magepow.com/license-agreement.html
+ * @Author: DOng NGuyen<support@magepow.com>
+ * @@Create Date: 2016-02-23 18:59:34
+ * @@Modify Date: 2020-03-16 10:26:07
+ * @@Function:
+ */ -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="multitranslate" frontName="multitranslate">
+            <module name="Magepow_MultiTranslate"/>
+        </route>
+    </router>
+</config>

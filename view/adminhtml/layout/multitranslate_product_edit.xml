@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /**
+ * Magepow 
+ * @category    Magepow 
+ * @copyright   Copyright (c) 2014 Magepow (https://www.magepow.com) 
+ * @license     http://www.magepow.com/license-agreement.html
+ * @Author: DOng NGuyen<support@magepow.com>
+ * @@Create Date: 2016-02-23 18:59:34
+ * @@Modify Date: 2020-03-16 10:26:07
+ * @@Function:
+ */ -->
+ 
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <update handle="editor"/>
+    <body>
+        <referenceBlock name="menu">
+            <action method="setActive">
+                <argument name="itemId" xsi:type="string">Magepow_MultiTranslate::multitranslate</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+        <block class="Magepow\MultiTranslate\Block\Adminhtml\Product\Edit" name="product_edit"/>
+        </referenceContainer>
+    </body>
+</page>

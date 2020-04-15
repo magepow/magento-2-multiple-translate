@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /**
+ * Magepow 
+ * @category    Magepow 
+ * @copyright   Copyright (c) 2014 Magepow (https://www.magepow.com) 
+ * @license     http://www.magepow.com/license-agreement.html
+ * @Author: DOng NGuyen<support@magepow.com>
+ * @@Create Date: 2016-02-23 18:59:34
+ * @@Modify Date: 2020-03-16 10:26:07
+ * @@Function:
+ */ -->
+ 
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="formkey"/>
+    <head>
+    	<title>Category</title>
+    </head>
+    <body>
+    	<referenceBlock name="menu">
+    	    <action method="setActive">
+    	        <argument name="itemId" xsi:type="string">Magepow_MultiTranslate::multitranslate</argument>
+    	    </action>
+    	</referenceBlock>
+    	<referenceBlock name="page.title">
+    	    <action method="setPageTitle">
+    	        <argument name="pageTitle" xsi:type="string">Category</argument>
+    	    </action>
+    	</referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magepow\MultiTranslate\Block\Adminhtml\Category" name="admin.block.category.grid.container"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,25 @@
+{
+    "name": "magepow/multitranslate",
+    "description": "Multi Translate extension for Magento 2 allows you to collect all information in one time to fill in all information for all languages",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+      "MIT"
+    ],
+    "authors": [
+      {
+        "name": "Magepow",
+        "email": "support@magepow.com",
+        "homepage": "https://magepow.com",
+        "role": "Technical Support"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "Magepow\\MultiTranslate\\": ""
+      },
+      "files": [
+        "registration.php"
+      ]
+    }
+  }

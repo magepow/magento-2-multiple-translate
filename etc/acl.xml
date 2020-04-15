@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Magepow 
+ * @category    Magepow 
+ * @copyright   Copyright (c) 2014 Magepow (https://www.magepow.com) 
+ * @license     http://www.magepow.com/license-agreement.html
+ * @Author: DOng NGuyen<support@magepow.com>
+ * @@Create Date: 2016-02-23 18:59:34
+ * @@Modify Date: 2020-03-16 10:26:07
+ * @@Function:
+ */ -->
+ 
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+	    <resources>
+	        <resource id="Magento_Backend::admin">
+	        	<resource id="Magepow_MultiTranslate::magepow" title="Magepow" sortOrder="10">
+	        	    <resource id="Magepow_MultiTranslate::multitranslate" title="MultiTranslate" sortOrder="10">
+	        	        <resource id="Magepow_MultiTranslate::multitranslate_product" title="Translate Product" sortOrder="10" />
+	        	        <resource id="Magepow_MultiTranslate::multitranslate_catalog" title="Translate Catalog" sortOrder="20" />
+	        	    </resource>
+	        	</resource>
+	            <resource id="Magento_Backend::stores">
+	                <resource id="Magento_Backend::stores_settings">
+	                    <resource id="Magento_Config::config">
+	                        <resource id="Magepow_MultiTranslate::config_multitranslate" title="MultiTranslate" />
+	                    </resource>
+	                </resource>
+	            </resource>
+	        </resource>
+	    </resources>
+	</acl>
+</config>
