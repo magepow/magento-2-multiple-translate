@@ -6,7 +6,7 @@
  * @license     http://www.magepow.com/license-agreement.html
  * @Author: DOng NGuyen<nguyen@dvn.com>
  * @@Create Date: 2016-01-05 10:40:51
- * @@Modify Date: 2018-03-27 11:32:32
+ * @@Modify Date: 2020-05-22 11:32:32
  * @@Function:
  */
 
@@ -45,7 +45,14 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
     protected function _prepareForm()
     {
         $model = $this->_coreRegistry->registry('category');
-        $products = $model->getProductCollection()->addAttributeToSelect('*');
+        $productCollection = $model->getProductCollection()->addAttributeToSelect('*');
+
+        $pager = $this->getLayout()->createBlock('Magento\Theme\Block\Html\Pager', 'form.pager')
+                                ->setAvailableLimit(array(5=>5, 10=>10, 15=>15, 20=>20))
+                                ->setShowPerPage(true)
+                                ->setCollection($productCollection)
+                                ->setTemplate('Magepow_MultiTranslate::html/pager.phtml');
+        $this->setChild('pager', $pager);
 
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create(
@@ -61,69 +68,113 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $form->setUseContainer(true);
         $form->setHtmlIdPrefix('magic_');
 
-        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Category Information')]);
+        $fieldset = $form->addFieldset('base_fieldset', ['legend' => __('Catalog Information')]);
 
         if ($model->getId()) {
             $fieldset->addField('entity_id', 'hidden', ['name' => 'entity_id']);
         }
 
-        $product = $this->_productFactory->create();
+       $note = $fieldset->addField('pager', 'note', array(
+            'text'     => $this->getPagerHtml()
+        ));
+
+        $note->setAfterElementHtml(
+            '<style>
+                .multitranslate-catalog-edit [class*="field-name_"], .multitranslate-catalog-edit [class*="field-use_default[name_"],
+                .multitranslate-catalog-edit [class*="field-description"], .multitranslate-catalog-edit [class*="field-use_default[description"],
+                .multitranslate-catalog-edit [class*="field-short_description"], .multitranslate-catalog-edit [class*="field-use_default[short_description"]
+                {
+                  width: 50%;
+                  float: left;
+                }
+                .multitranslate-catalog-edit [class*="field-description"]{clear: both;}
+            </style>'
+        );
 
         $stores = $this->_storeManager->getStores();
         $data = $model->getData();
         $data_form = $data;
-        foreach ($products as $item) {
-            $product_id = $item->getId();
-            $_product   = $product->setStoreId(0)->load($product_id);
+        foreach ($productCollection as $item) {
+            $productId = $item->getId();
+            $product = $this->_productFactory->create();
+            $_product   = $product->setStoreId(0)->load($productId);
 
             $_data      = $_product->getData();
             foreach ($_data as $key => $value) {
-                $key = $key . '_' . $product_id;
+                 /* 2 underline fix erro underline attribute short_description */
+                $key = $key . '__' . $productId;
                 $data_form[$key] = $value;
             }
-            $filed = 'name_' . $product_id;
-            $name = $fieldset->addField($filed, 'text',
+            $suffix = $productId;
+            $name = $fieldset->addField("name__$suffix", 'text',
                 [
-                    'label' => __("Name (Default)"),
-                    'title' => __("Name (Default)"),
-                    'name'  => $filed,
-                    'required' => true,
+                    'label'     => __("Name (Default)"),
+                    'title'     => __("Name (Default)"),
+                    'name'      => "name__$suffix",
+                    'required'  => true,
                 ]
             );
 
+            $fieldset->addField("description__$suffix", 'editor',
+                [
+                    'label'     => __('Description (Default)'),
+                    'title'     => __('Description'),
+                    'name'      => "description__$suffix",
+                    'config'    => $this->_wysiwygConfig->getConfig(),
+                    'wysiwyg'   => true,
+                    'required'  => false,
+                ]
+            );
+
+            $fieldset->addField("short_description__$suffix", 'editor',
+                [
+                    'label'     => __('Short description (Default)'),
+                    'title'     => __('Short description'),
+                    'name'      => "short_description__$suffix",
+                    'config'    => $this->_wysiwygConfig->getConfig(),
+                    'wysiwyg'   => true,
+                    'required'  => false,
+                ]
+            );
             
             foreach ($stores as $store) {
-                $store_id   = $store->getId();
-                $store_name = $store->getName();
-                $group_name = $this->_storeManager->getStore($store_id)->getGroup()->getName();
-                $_product   = $product->setStoreId($store_id)->load($product_id);
+                $storeId    = $store->getId();
+                $storeName  = $store->getName();
+                $groupName  = $this->_storeManager->getStore($storeId)->getGroup()->getName();
+                $product    = $this->_productFactory->create();
+                $_product   = $product->setStoreId($storeId)->load($productId);
 
-                $nameChecked = !$_product->getExistsStoreValueFlag('name');
+                $nameChecked                = !$_product->getExistsStoreValueFlag('name');
+                $descriptionChecked         = !$_product->getExistsStoreValueFlag('description');
+                $short_descriptionChecked   = !$_product->getExistsStoreValueFlag('short_description');
 
-                $_data      = $_product->getData();
+                $_data   = $_product->getData();
                 foreach ($_data as $key => $value) {
-                    $key = $key . '_' . $product_id . '_' . $store_id;
+                     /* 2 underline fix erro underline attribute short_description */
+                    $key = $key . '__' . $productId . '__' . $storeId;
                     $data_form[$key] = $value;
                 }
 
-                $filed = 'name_' . $product_id . '_' . $store_id;
-                $name = $fieldset->addField($filed, 'text',
+                /* 2 underline fix erro underline attribute short_description */
+                $suffix = $productId . '__' . $storeId;
+
+                $name = $fieldset->addField("name__$suffix", 'text',
                     [
-                        'label' => __("Name ($group_name - $store_name)"),
-                        'title' => __("Name ($store_name)"),
-                        'name'  => $filed,
-                        'required' => true,
+                        'label'     => __("Name ($groupName - $storeName)"),
+                        'title'     => __("Name ($storeName)"),
+                        'name'      => "name__$suffix",
+                        'required'  => true,
                     ]
                 );
 
-                $name_default = $fieldset->addField("use_default[$filed]", 'checkbox',
+                $name_default = $fieldset->addField("use_default[name__$suffix]", 'checkbox',
                     [
-                        'label' => __('Default Y/N'),
-                        'title' => __('Name'),
-                        'name'  => "use_default[$filed]",
-                        'value' => 1,
-                        'checked' => $nameChecked,
-                        'required' => false,
+                        'label'     => __('Use Default Value'),
+                        'title'     => __('Name'),
+                        'name'      => "use_default[name__$suffix]",
+                        'value'     => 1,
+                        'checked'   => $nameChecked,
+                        'required'  => false,
                     ]
                 );
 
@@ -151,6 +202,49 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                     </script>'
                 );
 
+                $fieldset->addField("description__$suffix", 'editor',
+                    [
+                        'label'     => __("Description ($storeName)"),
+                        'title'     => __("Description ($storeName)"),
+                        'name'      => "description__$suffix",
+                        'config'    => $this->_wysiwygConfig->getConfig(),
+                        'wysiwyg'   => true,
+                        'required'  => false,
+                    ]
+                );
+
+                $fieldset->addField("short_description__$suffix", 'editor',
+                    [
+                        'label'     => __("Short Description ($storeName)"),
+                        'title'     => __("Short Description ($storeName)"),
+                        'name'      => "short_description__$suffix",
+                        'config'    => $this->_wysiwygConfig->getConfig(),
+                        'wysiwyg'   => true,
+                        'required'  => false,
+                    ]
+                );
+
+                $fieldset->addField("use_default[description__$suffix]", 'checkbox',
+                    [
+                        'label'     => __('Use Default Value'),
+                        'title'     => __('Description'),
+                        'name'      => "use_default[description__$suffix]",
+                        'value'     => 1,
+                        'checked'   => $descriptionChecked,
+                        'required'  => false,
+                    ]
+                );
+
+                $fieldset->addField("use_default[short_description__$suffix]", 'checkbox',
+                    [
+                        'label'     => __('Use Default Value'),
+                        'title'     => __('Short Description'),
+                        'name'      => "use_default[short_description__$suffix]",
+                        'value'     => 1,
+                        'checked'   => $short_descriptionChecked,
+                        'required'  => false,
+                    ]
+                );
             }
         }
 
@@ -159,6 +253,11 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $this->setForm($form);
 
         return parent::_prepareForm();
+    }
+
+    public function getPagerHtml()
+    {
+        return $this->getChildHtml('pager');
     }
 
 }

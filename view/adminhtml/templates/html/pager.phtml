@@ -1,0 +1,251 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Pager template
+ *
+ * @see \Magento\Theme\Block\Html\Pager
+ */
+?>
+<?php if ($block->getCollection()->getSize()) : ?>
+
+    <?php if ($block->getUseContainer()) : ?>
+    <div class="pager">
+    <?php endif ?>
+
+        <?php if ($block->getShowAmounts()) : ?>
+        <p class="toolbar-amount">
+            <span class="toolbar-number">
+            <?php if ($block->getLastPageNum()>1) : ?>
+                <?= $block->escapeHtml(__('Items %1 to %2 of %3 total', $block->getFirstNum(), $block->getLastNum(), $block->getTotalNum())) ?>
+            <?php elseif ($block->getTotalNum() == 1) : ?>
+                <?= $block->escapeHtml(__('%1 Item', $block->getTotalNum())) ?>
+            <?php else : ?>
+                <?= $block->escapeHtml(__('%1 Item(s)', $block->getTotalNum())) ?>
+            <?php endif; ?>
+            </span>
+        </p>
+        <?php endif ?>
+
+        <?php if ($block->getLastPageNum()>1) : ?>
+        <div class="pages">
+            <strong class="label pages-label" id="paging-label"><?= $block->escapeHtml(__('Page')) ?></strong>
+            <ul class="items pages-items" aria-labelledby="paging-label">
+            <?php if (!$block->isFirstPage()) : ?>
+                <li class="item pages-item-previous">
+                    <?php $text = $block->getAnchorTextForPrevious() ? $block->getAnchorTextForPrevious() : '';?>
+                    <a class="<?= $block->escapeHtmlAttr($text ? 'link ' : 'action ') ?> previous"
+                       href="<?= $block->escapeUrl($block->getPreviousPageUrl()) ?>"
+                       title="<?= $block->escapeHtmlAttr($text ? $text : __('Previous')) ?>">
+                        <span class="label"><?= $block->escapeHtml(__('Page')) ?></span>
+                        <span><?= $block->escapeHtml($text ? $text : __('Previous')) ?></span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowFirst()) : ?>
+                <li class="item">
+                    <a class="page first" href="<?= $block->escapeUrl($block->getFirstPageUrl()) ?>">
+                        <span class="label"><?= $block->escapeHtml(__('Page')) ?></span>
+                        <span>1</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowPreviousJump()) : ?>
+                <li class="item">
+                    <a class="page previous jump"
+                       title=""
+                       href="<?= $block->escapeUrl($block->getPreviousJumpUrl()) ?>">
+                        <span>...</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php foreach ($block->getFramePages() as $_page) : ?>
+                <?php if ($block->isPageCurrent($_page)) : ?>
+                    <li class="item current">
+                        <strong class="page">
+                            <span class="label"><?= $block->escapeHtml(__('You\'re currently reading page')) ?></span>
+                            <span><?= $block->escapeHtml($_page) ?></span>
+                        </strong>
+                    </li>
+                <?php else : ?>
+                    <li class="item">
+                        <a href="<?= $block->escapeUrl($block->getPageUrl($_page)) ?>" class="page">
+                            <span class="label"><?= $block->escapeHtml(__('Page')) ?></span>
+                            <span><?= $block->escapeHtml($_page) ?></span>
+                        </a>
+                    </li>
+                <?php endif;?>
+            <?php endforeach;?>
+
+            <?php if ($block->canShowNextJump()) : ?>
+                <li class="item">
+                    <a class="page next jump" title="" href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?>">
+                        <span>...</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowLast()) : ?>
+              <li class="item">
+                  <a class="page last" href="<?= $block->escapeUrl($block->getLastPageUrl()) ?>">
+                      <span class="label"><?= $block->escapeHtml(__('Page')) ?></span>
+                      <span><?= $block->escapeHtml($block->getLastPageNum()) ?></span>
+                  </a>
+              </li>
+            <?php endif;?>
+
+            <?php if (!$block->isLastPage()) : ?>
+                <li class="item pages-item-next">
+                    <?php $text = $block->getAnchorTextForNext() ? $block->getAnchorTextForNext() : '';?>
+                    <a class="<?= /* @noEscape */ $text ? 'link ' : 'action ' ?> next"
+                       href="<?= $block->escapeUrl($block->getNextPageUrl()) ?>"
+                       title="<?= $block->escapeHtmlAttr($text ? $text : __('Next')) ?>">
+                        <span class="label"><?= $block->escapeHtml(__('Page')) ?></span>
+                        <span><?= $block->escapeHtml($text ? $text : __('Next')) ?></span>
+                    </a>
+                </li>
+            <?php endif;?>
+            </ul>
+        </div>
+        <?php endif; ?>
+
+<!--     <?php if ($block->isShowPerPage()) : ?>
+        <div class="limiter">
+            <strong class="limiter-label"><?= $block->escapeHtml(__('Show')) ?></strong>
+            <select id="limiter" data-mage-init='{"redirectUrl": {"event":"change"}}' class="limiter-options">
+                <?php foreach ($block->getAvailableLimit() as $_key => $_limit) : ?>
+                    <option value="<?= $block->escapeHtmlAttr($block->getLimitUrl($_key)) ?>"
+                        <?php if ($block->isLimitCurrent($_key)) : ?>
+                        selected="selected"<?php endif ?>>
+                        <?= $block->escapeHtml($_limit) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <span class="limiter-text"><?= $block->escapeHtml(__('per page')) ?></span>
+        </div>
+    <?php endif ?> -->
+
+    <?php if ($block->getUseContainer()) : ?>
+    </div>
+    <?php endif ?>
+
+<?php endif ?>
+<style type="text/css">
+.toolbar {
+    margin: 0 0 22px;
+    padding: 0 0 10px;
+    clear: both;
+    border-bottom: 3px solid #eee;
+    text-align: center;
+    position: relative;
+}
+.toolbar-amount {
+    display: inline-block;
+    float: left;
+    line-height: 30px;
+    padding-left: 5px;
+}
+.pager {
+    float: right;
+    margin: 0;
+    padding: 0;
+    border-top: 0;
+    text-align: center;
+}
+.pager .pages .paging-label{
+    float: left;
+    line-height: 30px;
+    padding: 0px 10px 0px 10px;
+    display: none;
+}
+.pages .pages-items {
+    display: inline-block;
+}
+.items {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+}
+.pages li.current, .pages li:hover, .pages li.item.pages-item-next:hover, .pages li.item.pages-item-previous:hover {
+    color: #222222;
+    background-color: #f95a00;
+    border-color: #f95a00;
+}
+.pages li {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    float: left;
+    font-size: 1.4rem;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 5px;
+    width: 30px;
+    text-align: center;
+}
+.pages li a {
+    color: #000000;
+}
+.pages .item .label {
+    border: 0 none;
+    clip: rect(0px,0px,0px,0px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.pages li a span, .pages li strong span {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.pages .pages-label {
+    color: #666;
+    margin: 0;
+    padding: 10px 0;
+    text-align: left;
+    display: none;
+}
+.pages li a span, .pages li strong span {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.pages li.item.pages-item-next, .pages li.item.pages-item-previous {
+    color: #000000;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #dddddd;
+}
+.pages li.item.pages-item-next span, .pages li.item.pages-item-previous span{
+    display: none;
+}
+.pages .action.next:before {
+    content: '\e62a';
+    display: inline-block;
+    font-family: 'Admin Icons';
+    font-weight: 400;
+    line-height: inherit;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+}
+.pages .action.previous:before {
+    content: '\e629';
+    display: inline-block;
+    font-family: 'Admin Icons';
+    font-weight: 400;
+    line-height: inherit;
+    margin: 0;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: top;
+}
+</style>

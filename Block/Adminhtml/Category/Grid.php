@@ -6,7 +6,7 @@
  * @license     http://www.magepow.com/license-agreement.html
  * @Author: DOng NGuyen<nguyen@dvn.com>
  * @@Create Date: 2016-01-05 10:40:51
- * @@Modify Date: 2018-03-26 21:26:10
+ * @@Modify Date: 2020-05-22 21:26:10
  * @@Function:
  */
 
@@ -19,12 +19,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      * @var Category
      */
     protected $_categoryInstance;
-
-    /**
-     * @var \Magento\Catalog\Model\CategoryFactory
-     */
-    protected $_categoryFactory;
-    protected $_collectionFactory;
 
     /**
      * @var \Magento\Catalog\Model\Product\Type
@@ -53,14 +47,11 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        \Magento\Framework\Data\CollectionFactory $collectionFactory,
         \Magento\Catalog\Model\CategoryFactory $categoryFactory,
         \Magento\Catalog\Model\Product\Attribute\Source\Status $status,
     
         array $data = []
     ) {
-        $this->_categoryFactory = $categoryFactory;
-        $this->_collectionFactory = $collectionFactory;
         $this->_categoryInstance = $categoryFactory->create();
         $this->_status = $status;
         parent::__construct($context, $backendHelper, $data);
@@ -73,26 +64,30 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
-        $this->setPagerVisibility(false);
+        // $this->setPagerVisibility(false);
         $this->setUseAjax(true);
     }
 
     protected function _prepareCollection()
     {
         
-        $categories = $this->_categoryInstance->getCollection()
+        $collection = $this->_categoryInstance->getCollection()
                         ->addAttributeToSelect(array('entity_id','name'));
 
-        $collection = $this->_collectionFactory->create();
-        foreach ($categories as $item) {
-            $varienObject = new \Magento\Framework\DataObject();
-            $varienObject->setData($item->getData());
-            $varienObject->setData('id', $item->getEntityId());
-            $collection->addItem($varienObject);
-        }
+        // foreach ($collection as $key => $item) {
+        //     $collection->removeItemByKey($key);// Remove original item from collection
+        //     $item->setData('children', array());
+        //     $collection->addItem($item);// Add modified item to collection
+        // }
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
+    }
+
+    public function getMultipleRows($item)
+    {   
+        // Fix error conflict with method getChildren of Extended and Category
+        return [];
     }
 
     /**

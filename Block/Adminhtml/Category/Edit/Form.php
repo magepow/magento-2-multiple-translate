@@ -72,14 +72,14 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
-        // $fieldset->addField('use_default[name]', 'checkbox',
-        //     [
-        //         'label' => __('Default Y/N'),
-        //         'title' => __('Name'),
-        //         'name'  => 'use_default[name]',
-        //         'required' => false,
-        //     ]
-        // );
+        $fieldset->addField('use_default[name]', 'checkbox',
+            [
+                'label' => __('Use Default Value'),
+                'title' => __('Name'),
+                'name'  => 'use_default[name]',
+                'required' => false,
+            ]
+        );
 
         $fieldset->addField('description', 'editor',
             [
@@ -92,14 +92,14 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             ]
         );
 
-        // $fieldset->addField('use_default[description]', 'checkbox',
-        //     [
-        //         'label' => __('Default Y/N'),
-        //         'title' => __('Name'),
-        //         'name'  => 'use_default[description]',
-        //         'required' => false,
-        //     ]
-        // );
+        $fieldset->addField('use_default[description]', 'checkbox',
+            [
+                'label' => __('Use Default Value'),
+                'title' => __('Name'),
+                'name'  => 'use_default[description]',
+                'required' => false,
+            ]
+        );
 
         $category = $this->_categoryFactory->create();
         $stores = $this->_storeManager->getStores();
@@ -132,7 +132,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
             $name_default = $fieldset->addField("use_default[name_$store_id]", 'checkbox',
                 [
-                    'label' => __('Default Y/N'),
+                    'label' => __('Use Default Value'),
                     'title' => __('Name'),
                     'name'  => "use_default[name_$store_id]",
                     'value' => 1,
@@ -178,7 +178,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
             $fieldset->addField("use_default[description_$store_id]", 'checkbox',
                 [
-                    'label' => __('Default Y/N'),
+                    'label' => __('Use Default Value'),
                     'title' => __('Description'),
                     'name'  => "use_default[description_$store_id]",
                     'value' => 1,

@@ -6,7 +6,7 @@
  * @license     http://www.magepow.com/license-agreement.html
  * @Author: DOng NGuyen<nguyen@dvn.com>
  * @@Create Date: 2016-01-05 10:40:51
- * @@Modify Date: 2018-03-26 21:46:03
+ * @@Modify Date: 2020-05-22 21:46:03
  * @@Function:
  */
 
@@ -14,22 +14,11 @@ namespace Magepow\MultiTranslate\Block\Adminhtml\Catalog;
 
 class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 {
- 
     /**
-     * @var Category
+     * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */
-    protected $_categoryInstance;
+    protected $_categoryCollectionFactory;
 
-    /**
-     * @var \Magento\Catalog\Model\CategoryFactory
-     */
-    protected $_categoryFactory;
-    protected $_collectionFactory;
-
-    /**
-     * @var \Magento\Catalog\Model\Product\Type
-     */
-    protected $_type;
 
     /**
      * @var \Magento\Catalog\Model\Product\Attribute\Source\Status
@@ -53,15 +42,12 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        \Magento\Framework\Data\CollectionFactory $collectionFactory,
-        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         \Magento\Catalog\Model\Product\Attribute\Source\Status $status,
     
         array $data = []
     ) {
-        $this->_categoryFactory = $categoryFactory;
-        $this->_collectionFactory = $collectionFactory;
-        $this->_categoryInstance = $categoryFactory->create();
+        $this->_categoryCollectionFactory = $categoryCollectionFactory->create();
         $this->_status = $status;
         parent::__construct($context, $backendHelper, $data);
     }
@@ -73,28 +59,24 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         $this->setDefaultSort('entity_id');
         $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
-        $this->setPagerVisibility(false);
+        // $this->setPagerVisibility(false);
         $this->setUseAjax(true);
     }
 
     protected function _prepareCollection()
     {
-        
-        $categories = $this->_categoryInstance->getCollection()
-                        ->addAttributeToSelect(array('entity_id','name'));
+        $collection = $this->_categoryCollectionFactory->addAttributeToSelect('*');
 
-        $collection = $this->_collectionFactory->create();
-        foreach ($categories as $item) {
-            $varienObject = new \Magento\Framework\DataObject();
-            $varienObject->setData($item->getData());
-            $varienObject->setData('id', $item->getEntityId());
-            $collection->addItem($varienObject);
-        }
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
 
+    public function getMultipleRows($item)
+    {
+        return [];
+    }
+    
     /**
      * @return $this
      */
@@ -212,4 +194,5 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             ['category_id' => $row->getId()]
         );
     }
+    
 }

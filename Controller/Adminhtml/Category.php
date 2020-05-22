@@ -74,18 +74,18 @@ abstract class Category extends \Magento\Backend\App\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         parent::__construct($context);
-        $this->_coreRegistry = $coreRegistry;
-        $this->_fileFactory = $fileFactory;
-        $this->_jsHelper = $jsHelper;
-        $this->_storeManager = $storeManager;
+        $this->_coreRegistry    = $coreRegistry;
+        $this->_fileFactory     = $fileFactory;
+        $this->_jsHelper        = $jsHelper;
+        $this->_storeManager    = $storeManager;
 
-        $this->_resultPageFactory = $resultPageFactory;
-        $this->_resultLayoutFactory = $resultLayoutFactory;
-        $this->_resultForwardFactory = $resultForwardFactory;
-        $this->_resultRedirectFactory = $context->getResultRedirectFactory();
+        $this->_resultPageFactory       = $resultPageFactory;
+        $this->_resultLayoutFactory     = $resultLayoutFactory;
+        $this->_resultForwardFactory    = $resultForwardFactory;
+        $this->_resultRedirectFactory   = $context->getResultRedirectFactory();
 		
-        $this->_categoryFactory = $categoryFactory;
-        $this->_categoryCollectionFactory = $categoryCollectionFactory;
+        $this->_categoryFactory             = $categoryFactory;
+        $this->_categoryCollectionFactory   = $categoryCollectionFactory;
     }
 
     protected function _isAllowed()

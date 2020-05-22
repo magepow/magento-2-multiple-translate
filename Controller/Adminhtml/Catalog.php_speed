@@ -1,9 +1,9 @@
 <?php
 /**
  * Magepow 
- * @category    Magepow 
- * @copyright   Copyright (c) 2014 Magepow (http://www.magepow.com/) 
- * @license     http://www.magepow.com/license-agreement.html
+ * @category 	Magepow 
+ * @copyright 	Copyright (c) 2014 Magepow (http://www.magepow.com/) 
+ * @license 	http://www.magepow.com/license-agreement.html
  * @Author: DOng NGuyen<nguyen@dvn.com>
  * @@Create Date: 2016-01-05 10:40:51
  * @@Modify Date: 2018-03-26 23:00:41
@@ -45,7 +45,8 @@ abstract class Catalog extends \Magento\Backend\App\Action
 
 
     protected $_productFactory;
-
+    protected $_productRepository;
+    protected $_productResource;
     protected $_productCollectionFactory;
     /**
      * Registry object.
@@ -63,15 +64,17 @@ abstract class Catalog extends \Magento\Backend\App\Action
 
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Catalog\Model\ProductFactory $productFactory,
-        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
-        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory,
+        \Magento\Backend\Helper\Js $jsHelper,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\View\Result\LayoutFactory $resultLayoutFactory,
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory,
-        \Magento\Backend\Helper\Js $jsHelper,
+        \Magento\Catalog\Model\CategoryFactory $categoryFactory,
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepository,
+        \Magento\Catalog\Api\Data\ProductInterfaceFactory $productFactory,
+        \Magento\Catalog\Model\ResourceModel\Product $productResource,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager
     ) {
         parent::__construct($context);
@@ -84,8 +87,10 @@ abstract class Catalog extends \Magento\Backend\App\Action
         $this->_resultLayoutFactory     = $resultLayoutFactory;
         $this->_resultForwardFactory    = $resultForwardFactory;
         $this->_resultRedirectFactory   = $context->getResultRedirectFactory();
-
+		
         $this->_productFactory              = $productFactory;
+        $this->_productRepository           = $productRepository;
+        $this->_productResource             = $productResource;
         $this->_categoryFactory             = $categoryFactory;
         $this->_productCollectionFactory    = $productCollectionFactory;
     }

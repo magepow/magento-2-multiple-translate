@@ -44,30 +44,26 @@ class Save extends \Magepow\MultiTranslate\Controller\Adminhtml\Catalog
                     }
                     $attributeCode = $tmp[0];
                     try {
-                        $productFactory = $this->_productFactory->create();
-                        $product = $productFactory->setStoreId($storeId)->load($productId);
-                        $product->setStoreViewId($storeId);
+
+                        $product = $this->_productRepository->getById($productId, false, $storeId);
                         /**
                          * Check "Use Default Value" checkboxes values
                          */
-                        if (isset($data['use_default'][$key])) {
-                           
+                        if (isset($data['use_default']["$key"])) {
                             $product->setData($attributeCode, null);
                             // if ($product->hasData("use_config_$attributeCode")) {
                                 $product->setData("use_config_$attributeCode", false);
                             // }
-                            $product->save();
-                            $this->messageManager->addSuccess(__("The %1 Product Id %2 has changed to Use Default Value.", $attributeCode, $productId));
+                            $this->_productResource->save($product);
+                            $this->messageManager->addSuccess(__("The %1 Product Id %2 has changed to Use Default Value.", $attributeCode, $productId));    
                         } else {
-                            $product->setData($attributeCode, $value);
-                            $product->save();
+                            $product->addAttributeUpdate($attributeCode, $value, $storeId);
                             $this->messageManager->addSuccess(__("The %1 Product Id %2 has been saved.", $attributeCode, $productId));
                         }
 
-
                     }  catch (\Exception $e) {
                         $this->messageManager->addError($e->getMessage());
-                        $this->messageManager->addException($e, __("Something went wrong while saving %1 the product Id %2", $attributeCode, $productId));
+                        $this->messageManager->addException($e, __("Something went wrong while saving the product Id %1", $productId));
                     }
                 }
             }

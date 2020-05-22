@@ -100,7 +100,7 @@ class Save extends \Magepow\MultiTranslate\Controller\Adminhtml\Product
 
                 $this->messageManager->addSuccess(__('The Product has been saved.'));
                 $this->_getSession()->setFormData(false);
-
+                $storeViewId = $this->_storeManager->getStore()->getId();
                 if ($this->getRequest()->getParam('back') === 'edit') {
                     return $resultRedirect->setPath(
                         '*/*/edit',

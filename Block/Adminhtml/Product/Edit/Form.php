@@ -6,7 +6,7 @@
  * @license     http://www.magepow.com/license-agreement.html
  * @Author: DOng NGuyen<nguyen@dvn.com>
  * @@Create Date: 2016-01-05 10:40:51
- * @@Modify Date: 2018-04-12 11:40:16
+ * @@Modify Date: 2020-05-22 11:40:16
  * @@Function:
  */
 
@@ -88,7 +88,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         // $fieldset->addField('use_default[name]', 'checkbox',
         //     [
-        //         'label' => __('Default Y/N'),
+        //         'label' => __('Use Default Value'),
         //         'title' => __('Name'),
         //         'name'  => 'use_default[name]',
         //         'required' => false,
@@ -108,7 +108,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         // $fieldset->addField('use_default[description]', 'checkbox',
         //     [
-        //         'label' => __('Default Y/N'),
+        //         'label' => __('Use Default Value'),
         //         'title' => __('Name'),
         //         'name'  => 'use_default[description]',
         //         'required' => false,
@@ -128,7 +128,7 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
         // $fieldset->addField('use_default[short_description]', 'checkbox',
         //     [
-        //         'label' => __('Default Y/N'),
+        //         'label' => __('Use Default Value'),
         //         'title' => __('Name'),
         //         'name'  => 'use_default[short_description]',
         //         'required' => false,
@@ -140,11 +140,11 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         $data = $model->getData();
         $data_form = $data;
         foreach ($stores as $store) {
-            $store_id   = $store->getId();
+            $storeId   = $store->getId();
             $store_name = $store->getName();
-            $group_name = $this->_storeManager->getStore($store_id)->getGroup()->getName();
-            $product_id = $model->getId();
-            $_product   = $product->setStoreId($store_id)->load($product_id);
+            $group_name = $this->_storeManager->getStore($storeId)->getGroup()->getName();
+            $productId = $model->getId();
+            $_product   = $product->setStoreId($storeId)->load($productId);
 
             $nameChecked                = !$_product->getExistsStoreValueFlag('name');
             $descriptionChecked         = !$_product->getExistsStoreValueFlag('description');
@@ -152,24 +152,24 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
 
             $_data      = $_product->getData();
             foreach ($_data as $key => $value) {
-                $key = $key . '_' . $store_id;
+                $key = $key . '_' . $storeId;
                 $data_form[$key] = $value;
             }
 
-            $name = $fieldset->addField("name_$store_id", 'text',
+            $name = $fieldset->addField("name_$storeId", 'text',
                 [
                     'label' => __("Name ($group_name - $store_name)"),
                     'title' => __("Name ($store_name)"),
-                    'name'  => "name_$store_id",
+                    'name'  => "name_$storeId",
                     'required' => true,
                 ]
             );
 
-            $name_default = $fieldset->addField("use_default[name_$store_id]", 'checkbox',
+            $name_default = $fieldset->addField("use_default[name_$storeId]", 'checkbox',
                 [
-                    'label' => __('Default Y/N'),
+                    'label' => __('Use Default Value'),
                     'title' => __('Name'),
-                    'name'  => "use_default[name_$store_id]",
+                    'name'  => "use_default[name_$storeId]",
                     'value' => 1,
                     'checked' => $nameChecked,
                     'required' => false,
@@ -202,44 +202,44 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 </script>'
             );
 
-            $fieldset->addField("description_$store_id", 'editor',
+            $fieldset->addField("description_$storeId", 'editor',
                 [
                     'label' => __("Description ($store_name)"),
                     'title' => __("Description ($store_name)"),
-                    'name'  => "description_$store_id",
+                    'name'  => "description_$storeId",
                     'config'    => $this->_wysiwygConfig->getConfig(),
                     'wysiwyg'   => true,
                     'required' => false,
                 ]
             );
 
-            $fieldset->addField("short_description_$store_id", 'editor',
+            $fieldset->addField("short_description_$storeId", 'editor',
                 [
                     'label' => __("Short Description ($store_name)"),
                     'title' => __("Short Description ($store_name)"),
-                    'name'  => "short_description_$store_id",
+                    'name'  => "short_description_$storeId",
                     'config'    => $this->_wysiwygConfig->getConfig(),
                     'wysiwyg'   => true,
                     'required' => false,
                 ]
             );
 
-            $fieldset->addField("use_default[description_$store_id]", 'checkbox',
+            $fieldset->addField("use_default[description_$storeId]", 'checkbox',
                 [
-                    'label' => __('Default Y/N'),
+                    'label' => __('Use Default Value'),
                     'title' => __('Description'),
-                    'name'  => "use_default[description_$store_id]",
+                    'name'  => "use_default[description_$storeId]",
                     'value' => 1,
                     'checked' => $descriptionChecked,
                     'required' => false,
                 ]
             );
 
-            $fieldset->addField("use_default[short_description_$store_id]", 'checkbox',
+            $fieldset->addField("use_default[short_description_$storeId]", 'checkbox',
                 [
-                    'label' => __('Default Y/N'),
+                    'label' => __('Use Default Value'),
                     'title' => __('Short Description'),
-                    'name'  => "use_default[short_description_$store_id]",
+                    'name'  => "use_default[short_description_$storeId]",
                     'value' => 1,
                     'checked' => $short_descriptionChecked,
                     'required' => false,
