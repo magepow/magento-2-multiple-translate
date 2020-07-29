@@ -7,11 +7,11 @@ Multi Translate extension for Magento 2 allows you to collect all information in
 ### ✓ Install Magepow Multitranslate via composer (recommend)
 Run the following command in Magento 2 root folder:
 
-`composer require magepow/multitranslate`
-
-`php bin/magento setup:upgrade`
-
-`php bin/magento setup:static-content:deploy -f`
+```
+composer require magepow/multitranslate
+php bin/magento setup:upgrade
+php bin/magento setup:static-content:deploy -f
+```
 
 ## 2. Highlight Features
 -  For each product/category/catalog translating: Complete in one saving time, no need to choose store view. No worry about the number of languages
@@ -23,6 +23,13 @@ Run the following command in Magento 2 root folder:
 
 ## 3. User Guide
 [Online Document](https://docs.alothemes.com/m2/extension/multitranslate/)
+
+## Donation
+
+If this project help you reduce time to develop, you can give me a cup of coffee :) 
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/paypalme/alopay)
+
 
 **Free Extensions List**
 
