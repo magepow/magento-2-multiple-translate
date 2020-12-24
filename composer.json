@@ -1,8 +1,10 @@
 {
     "name": "magepow/multitranslate",
     "description": "Multi Translate extension for Magento 2 allows you to collect all information in one time to fill in all information for all languages",
+    "require": {
+      "magepow/core": "^1.0.0"
+    },
     "type": "magento2-module",
-    "version": "1.0.1",
     "license": [
       "OSL-3.0",
       "AFL-3.0"
