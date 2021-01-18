@@ -17,6 +17,7 @@
 	        	<resource id="Magepow_MultiTranslate::magepow" title="Magepow" sortOrder="10">
 	        	    <resource id="Magepow_MultiTranslate::multitranslate" title="MultiTranslate" sortOrder="10">
 	        	        <resource id="Magepow_MultiTranslate::multitranslate_product" title="Translate Product" sortOrder="10" />
+	        	        <resource id="Magepow_MultiTranslate::multitranslate_category" title="Translate Category" sortOrder="15" />
 	        	        <resource id="Magepow_MultiTranslate::multitranslate_catalog" title="Translate Catalog" sortOrder="20" />
 	        	    </resource>
 	        	</resource>
