@@ -1,10 +1,33 @@
-# Magento 2 multi translate Extension
+## Magento 2 multi translate Extension
+
 When your Magento store has multiple views in different languages, the same products, categories, and catalogs are available in each store view. However, you will need to translate some information such as product name, product description, product details..., and the same with categories in each language. To do this, you will need to do the same manipulation, this thing leads to waste much of your time such as choose store views, after completing you will need to save information three times on one product if you have three languages,...or even much more if you have upper 10 languages.
 
-Multi Translate extension for Magento 2 allows you to collect all information in one time to fill in all information for all languages. After completing, you only need to save one time. With a product, you will able to translate its name, product description (short and long) for all store views at one time. With a category, you will able to translate its name and description at one time. And, with a catalog, you will able to translate all categories name in that catalog.
+Multi Translate extension for Magento 2 allows you to collect all information in one time to fill in all information for all languages. After completing, you only need to save one time. With a product, you will able to translate its name, product description (short and long) for all store views at one time. With a category, you will able to translate its name and description at one time. And, with a catalog, you will able to translate all categories' names in that catalog.
 
-## 1. How to install Magento 2 Multitranslate
-### ✓ Install Magepow Multitranslate via composer (recommend)
+### Outstanding Features
+
+- For each product/category/catalog translating: Complete in one saving time, no need to choose store view. No worry about the number of languages
+
+- All store view language in just one window
+
+- Allow translating product information quickly such as product name, product description, product detail
+
+- Allow translating category information quickly such as Category name, description
+
+- Allow translating catalog information quickly such as the name in each language
+
+- Easy to install and manage in admin Panel, no coding needed
+
+[![Latest Stable Version](https://poser.pugx.org/magepow/multitranslate/v/stable)](https://packagist.org/packages/magepow/multitranslate)
+[![Total Downloads](https://poser.pugx.org/magepow/multitranslate/downloads)](https://packagist.org/packages/magepow/multitranslate)
+
+### See more
+
+- Detailed description, Demo frontend, Demo backend: 
+
+## How to use Magento 2 Multitranslate
+### 1. How to install Multi Translate extension
+#### ✓ Install Magepow Multitranslate via composer (recommend)
 Run the following command in Magento 2 root folder:
 
 ```
@@ -13,15 +36,7 @@ php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy -f
 ```
 
-## 2. Highlight Features
--  For each product/category/catalog translating: Complete in one saving time, no need to choose store view. No worry about the number of languages
-- All store view language in just one window
-- Allow translating product information quickly such as product name, product description, product detail
-- Allow translating category information quickly such as Category name, description
-- Allow translating catalog information quickly such as the name in each language
-- Easy to install and manage in admin Panel, no coding needed
-
-## 3. User Guide
+### 3. User Guide
 [Online Document](https://docs.alothemes.com/m2/extension/multitranslate/)
 
 ## Donation
@@ -87,7 +102,5 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 
 * [Hire Magento Developer](https://magepow.com/hire-magento-developer.html)
 
-[![Latest Stable Version](https://poser.pugx.org/magepow/multitranslate/v/stable)](https://packagist.org/packages/magepow/multitranslate)
-[![Total Downloads](https://poser.pugx.org/magepow/multitranslate/downloads)](https://packagist.org/packages/magepow/multitranslate)
 
 
