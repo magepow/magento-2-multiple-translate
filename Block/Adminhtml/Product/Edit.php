@@ -52,7 +52,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
         $this->buttonList->remove('delete');
 
         if ($this->_isAllowedAction('MultiTranslate_Product::save')) {
-            $this->buttonList->update('save', 'label', __('Save Product'));
+            $this->buttonList->update('save', 'label', __('Save'));
             $this->buttonList->add(
                 'saveandcontinue',
                 [
@@ -66,9 +66,10 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
                 ],
                 -100
             );
-        } else {
-            $this->buttonList->remove('save');
-        }
+        } 
+        // else {
+        //     $this->buttonList->remove('save');
+        // }
  
         // if ($this->_coreRegistry->registry('product')->getId()) {
             $this->buttonList->remove('reset');
