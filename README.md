@@ -20,6 +20,7 @@ Multi Translate extension for Magento 2 allows you to collect all information in
 
 [![Latest Stable Version](https://poser.pugx.org/magepow/multitranslate/v/stable)](https://packagist.org/packages/magepow/multitranslate)
 [![Total Downloads](https://poser.pugx.org/magepow/multitranslate/downloads)](https://packagist.org/packages/magepow/multitranslate)
+[![Daily Downloads](https://poser.pugx.org/magepow/multitranslate/d/daily)](https://packagist.org/packages/magepow/multitranslate)
 
 ### See more
 
