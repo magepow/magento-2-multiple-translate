@@ -27,7 +27,7 @@ https://github.com/magepow/magento-2-multiple-translate/blob/master/magento-2-mu
 
 ### See more
 
-- Detailed description, Demo frontend, Demo backend: 
+- Detailed description, Demo frontend, Demo backend: [Multi Translate extension ](https://magepow.com/magento-2-multi-translate.html)
 
 ## How to use Magento 2 Multitranslate
 ### 1. How to install Multi Translate extension
@@ -41,6 +41,11 @@ php bin/magento setup:static-content:deploy -f
 ```
 
 ### 3. User Guide
+
+Adding this attribute to magento is really important, especially for websites that serve customers in many different countries.
+
+After installing the extension, you just need to log in to the admin panel and start managing translations of all languages ​​in the store. Perform translation and completion operations in just one page and one time. It's great, isn't it?
+
 [Online Document](https://docs.alothemes.com/m2/extension/multitranslate/)
 
 ## Donation
