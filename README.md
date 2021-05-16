@@ -2,7 +2,10 @@
 
 When your Magento store has multiple views in different languages, the same products, categories, and catalogs are available in each store view. However, you will need to translate some information such as product name, product description, product details..., and the same with categories in each language. To do this, you will need to do the same manipulation, this thing leads to waste much of your time such as choose store views, after completing you will need to save information three times on one product if you have three languages,...or even much more if you have upper 10 languages.
 
-Multi Translate extension for Magento 2 allows you to collect all information in one time to fill in all information for all languages. After completing, you only need to save one time. With a product, you will able to translate its name, product description (short and long) for all store views at one time. With a category, you will able to translate its name and description at one time. And, with a catalog, you will able to translate all categories' names in that catalog.
+[**Multi Translate extension for Magento 2 by Magepow**](https://magepow.com/magento-2-multi-translate.html) allows you to collect all information in one time to fill in all information for all languages. After completing, you only need to save one time. With a product, you will able to translate its name, product description (short and long) for all store views at one time. With a category, you will able to translate its name and description at one time. And, with a catalog, you will able to translate all categories' names in that catalog.
+
+[![result-recent-order-notification-for-magento-img](
+https://github.com/magepow/magento-2-multiple-translate/blob/master/magento-2-multitranslate.png)](https://magepow.com/magento-2-multi-translate.html)
 
 ### Outstanding Features
 
