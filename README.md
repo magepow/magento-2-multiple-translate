@@ -1,3 +1,5 @@
+[<img src="https://github.com/magepow/themeforest/blob/master/shopify/shopify_affiliate.jpg" >](https://shopify.pxf.io/VyL446)
+
 ## Magento 2 multi translate Extension
 
 When your Magento store has multiple views in different languages, the same products, categories, and catalogs are available in each store view. However, you will need to translate some information such as product name, product description, product details..., and the same with categories in each language. To do this, you will need to do the same manipulation, this thing leads to waste much of your time such as choose store views, after completing you will need to save information three times on one product if you have three languages,...or even much more if you have upper 10 languages.
